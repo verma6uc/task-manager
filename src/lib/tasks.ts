@@ -20,7 +20,6 @@ export type CreateTaskInput = {
   description?: string
   status?: TaskStatus
   priority?: TaskPriority
-  due_date?: string
 }
 
 export type UpdateTaskInput = {
@@ -28,7 +27,6 @@ export type UpdateTaskInput = {
   description?: string
   status?: TaskStatus
   priority?: TaskPriority
-  due_date?: string
 }
 
 // Get all tasks for the current user

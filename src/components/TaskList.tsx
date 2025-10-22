@@ -85,12 +85,6 @@ export const TaskList = ({ tasks, onTaskUpdate }: TaskListProps) => {
               <option value="in_progress">In Progress</option>
               <option value="completed">Completed</option>
             </select>
-
-            {task.due_date && (
-              <span className="due-date">
-                Due: {new Date(task.due_date).toLocaleDateString()}
-              </span>
-            )}
           </div>
         </div>
       ))}

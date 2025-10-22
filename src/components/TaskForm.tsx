@@ -13,7 +13,6 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState<TaskStatus>('pending')
   const [priority, setPriority] = useState<TaskPriority>('medium')
-  const [dueDate, setDueDate] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -28,14 +27,12 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
         description: description || undefined,
         status,
         priority,
-        due_date: dueDate || undefined,
       })
       // Reset form
       setTitle('')
       setDescription('')
       setStatus('pending')
       setPriority('medium')
-      setDueDate('')
     } catch (err: any) {
       setError(err.message || 'Failed to create task')
     } finally {
@@ -105,16 +102,6 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
                 <option value="high">High</option>
               </select>
             </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="dueDate">Due Date</label>
-            <input
-              id="dueDate"
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-            />
           </div>
 
           <div className="form-actions">
