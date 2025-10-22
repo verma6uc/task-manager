@@ -1,0 +1,124 @@
+.navbar {
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.navbar-content {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  background: #0a0a0a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-icon:hover {
+  transform: rotate(5deg) scale(1.05);
+}
+
+.brand-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0a0a0a;
+  letter-spacing: -0.05em;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+}
+
+.user-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #404040 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.user-email-nav {
+  font-size: 14px;
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  background: white;
+  color: #0a0a0a;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-button:hover {
+  background: #0a0a0a;
+  color: white;
+  border-color: #0a0a0a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 10, 10, 0.15);
+}
+
+@media (max-width: 640px) {
+  .navbar-content {
+    padding: 12px 20px;
+  }
+
+  .brand-text {
+    font-size: 18px;
+  }
+
+  .user-email-nav {
+    display: none;
+  }
+
+  .user-menu {
+    padding: 8px;
+  }
+
+  .nav-button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
