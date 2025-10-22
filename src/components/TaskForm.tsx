@@ -1,5 +1,6 @@
-import { useState, FormEvent } from 'react'
-import { CreateTaskInput, TaskStatus, TaskPriority } from '../lib/tasks'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
+import type { CreateTaskInput, TaskStatus, TaskPriority } from '../lib/tasks'
 import '../styles/TaskForm.css'
 
 interface TaskFormProps {

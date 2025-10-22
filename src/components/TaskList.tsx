@@ -1,4 +1,5 @@
-import { Task, updateTask, deleteTask } from '../lib/tasks'
+import { updateTask, deleteTask } from '../lib/tasks'
+import type { Task } from '../lib/tasks'
 import '../styles/TaskList.css'
 
 interface TaskListProps {
@@ -40,18 +41,6 @@ export const TaskList = ({ tasks, onTaskUpdate }: TaskListProps) => {
     }
   }
 
-  const getStatusLabel = (status: Task['status']) => {
-    switch (status) {
-      case 'pending':
-        return 'Pending'
-      case 'in_progress':
-        return 'In Progress'
-      case 'completed':
-        return 'Completed'
-      default:
-        return status
-    }
-  }
 
   if (tasks.length === 0) {
     return (

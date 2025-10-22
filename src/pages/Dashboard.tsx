@@ -3,7 +3,8 @@ import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { TaskForm } from '../components/TaskForm'
 import { TaskList } from '../components/TaskList'
-import { getTasks, createTask, getTaskStats, Task, CreateTaskInput } from '../lib/tasks'
+import { getTasks, createTask, getTaskStats } from '../lib/tasks'
+import type { Task, CreateTaskInput } from '../lib/tasks'
 import '../styles/Dashboard.css'
 
 export const Dashboard = () => {
