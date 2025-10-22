@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { TaskForm } from '../components/TaskForm'
-import { TaskList } from '../components/TaskList'
+import { TaskTable } from '../components/TaskTable'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { getTasks, createTask, getTaskStats } from '../lib/tasks'
@@ -174,7 +174,7 @@ export const Dashboard = () => {
                   )}
                 </div>
               ) : (
-                <TaskList tasks={filteredTasks} onTaskUpdate={loadTasks} />
+                <TaskTable tasks={filteredTasks} onTaskUpdate={loadTasks} />
               )}
             </div>
           </section>
