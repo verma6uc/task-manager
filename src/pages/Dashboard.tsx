@@ -11,7 +11,7 @@ export const Dashboard = () => {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const [tasks, setTasks] = useState<Task[]>([])
-  const [stats, setStats] = useState({ total: 0, completed: 0, in_progress: 0, pending: 0 })
+  const [stats, setStats] = useState({ total: 0, done: 0, in_progress: 0, todo: 0 })
   const [showTaskForm, setShowTaskForm] = useState(false)
   const [loading, setLoading] = useState(true)
 
@@ -70,8 +70,8 @@ export const Dashboard = () => {
           </div>
 
           <div className="dashboard-card">
-            <h3>Completed</h3>
-            <p className="card-number">{stats.completed}</p>
+            <h3>Done</h3>
+            <p className="card-number">{stats.done}</p>
             <p className="card-description">Tasks completed</p>
           </div>
 
@@ -82,8 +82,8 @@ export const Dashboard = () => {
           </div>
 
           <div className="dashboard-card">
-            <h3>Pending</h3>
-            <p className="card-number">{stats.pending}</p>
+            <h3>To Do</h3>
+            <p className="card-number">{stats.todo}</p>
             <p className="card-description">Tasks to start</p>
           </div>
         </div>

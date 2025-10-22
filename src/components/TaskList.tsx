@@ -81,9 +81,9 @@ export const TaskList = ({ tasks, onTaskUpdate }: TaskListProps) => {
               onChange={(e) => handleStatusChange(task.id, e.target.value as Task['status'])}
               className="status-select"
             >
-              <option value="pending">Pending</option>
+              <option value="todo">To Do</option>
               <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option value="done">Done</option>
             </select>
           </div>
         </div>

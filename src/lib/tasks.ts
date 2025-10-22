@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-export type TaskStatus = 'pending' | 'in_progress' | 'completed'
+export type TaskStatus = 'todo' | 'in_progress' | 'done'
 export type TaskPriority = 'low' | 'medium' | 'high'
 
 export type Task = {
@@ -10,7 +10,6 @@ export type Task = {
   description?: string
   status: TaskStatus
   priority: TaskPriority
-  due_date?: string
   created_at: string
   updated_at: string
 }
@@ -62,9 +61,10 @@ export async function createTask(input: CreateTaskInput) {
     .from('tasks')
     .insert([
       {
-        ...input,
         user_id: user.id,
-        status: input.status || 'pending',
+        title: input.title,
+        description: input.description,
+        status: input.status || 'todo',
         priority: input.priority || 'medium',
       },
     ])
@@ -104,8 +104,8 @@ export async function getTaskStats() {
 
   return {
     total: tasks.length,
-    completed: tasks.filter(t => t.status === 'completed').length,
+    done: tasks.filter(t => t.status === 'done').length,
     in_progress: tasks.filter(t => t.status === 'in_progress').length,
-    pending: tasks.filter(t => t.status === 'pending').length,
+    todo: tasks.filter(t => t.status === 'todo').length,
   }
 }

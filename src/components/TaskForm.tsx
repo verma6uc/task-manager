@@ -11,7 +11,7 @@ interface TaskFormProps {
 export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [status, setStatus] = useState<TaskStatus>('pending')
+  const [status, setStatus] = useState<TaskStatus>('todo')
   const [priority, setPriority] = useState<TaskPriority>('medium')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -31,7 +31,7 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
       // Reset form
       setTitle('')
       setDescription('')
-      setStatus('pending')
+      setStatus('todo')
       setPriority('medium')
     } catch (err: any) {
       setError(err.message || 'Failed to create task')
@@ -84,9 +84,9 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
                 value={status}
                 onChange={(e) => setStatus(e.target.value as TaskStatus)}
               >
-                <option value="pending">Pending</option>
+                <option value="todo">To Do</option>
                 <option value="in_progress">In Progress</option>
-                <option value="completed">Completed</option>
+                <option value="done">Done</option>
               </select>
             </div>
 
