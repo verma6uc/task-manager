@@ -64,3 +64,11 @@ CREATE TRIGGER update_tasks_updated_at
   BEFORE UPDATE ON tasks
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
+
+-- Grant permissions on tasks table
+GRANT ALL ON tasks TO authenticated;
+GRANT ALL ON tasks TO anon;
+
+-- Grant usage on sequences
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon;
