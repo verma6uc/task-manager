@@ -3,7 +3,7 @@ import { supabase } from './supabase'
 export type TaskStatus = 'pending' | 'in_progress' | 'completed'
 export type TaskPriority = 'low' | 'medium' | 'high'
 
-export interface Task {
+export type Task = {
   id: string
   user_id: string
   title: string
@@ -15,7 +15,7 @@ export interface Task {
   updated_at: string
 }
 
-export interface CreateTaskInput {
+export type CreateTaskInput = {
   title: string
   description?: string
   status?: TaskStatus
@@ -23,7 +23,7 @@ export interface CreateTaskInput {
   due_date?: string
 }
 
-export interface UpdateTaskInput {
+export type UpdateTaskInput = {
   title?: string
   description?: string
   status?: TaskStatus
