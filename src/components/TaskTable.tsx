@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react'
 import { updateTask, deleteTask } from '../lib/tasks'
 import type { Task } from '../lib/tasks'
+import { getProjects } from '../lib/projects'
+import type { Project } from '../lib/projects'
 import '../styles/TaskTable.css'
 
 interface TaskTableProps {
@@ -8,6 +11,27 @@ interface TaskTableProps {
 }
 
 export const TaskTable = ({ tasks, onTaskUpdate }: TaskTableProps) => {
+  const [projects, setProjects] = useState<Project[]>([])
+
+  useEffect(() => {
+    loadProjects()
+  }, [])
+
+  const loadProjects = async () => {
+    try {
+      const allProjects = await getProjects()
+      setProjects(allProjects)
+    } catch (err) {
+      console.error('Failed to load projects:', err)
+    }
+  }
+
+  const getProjectName = (projectId?: string) => {
+    if (!projectId) return 'No Project'
+    const project = projects.find(p => p.id === projectId)
+    return project?.name || 'Unknown'
+  }
+
   const handleStatusChange = async (taskId: string, newStatus: Task['status']) => {
     try {
       await updateTask(taskId, { status: newStatus })
@@ -76,6 +100,7 @@ export const TaskTable = ({ tasks, onTaskUpdate }: TaskTableProps) => {
         <thead>
           <tr>
             <th className="th-title">Task</th>
+            <th className="th-project">Project</th>
             <th className="th-status">Status</th>
             <th className="th-priority">Priority</th>
             <th className="th-date">Created</th>
@@ -96,6 +121,11 @@ export const TaskTable = ({ tasks, onTaskUpdate }: TaskTableProps) => {
                       <div className="task-desc">{task.description}</div>
                     )}
                   </div>
+                </td>
+                <td className="td-project">
+                  <span className={`project-label ${!task.project_id ? 'no-project' : ''}`}>
+                    {getProjectName(task.project_id)}
+                  </span>
                 </td>
                 <td className="td-status">
                   <select

@@ -10,6 +10,7 @@ export type Task = {
   description?: string
   status: TaskStatus
   priority: TaskPriority
+  project_id?: string
   created_at: string
   updated_at: string
 }
@@ -19,6 +20,7 @@ export type CreateTaskInput = {
   description?: string
   status?: TaskStatus
   priority?: TaskPriority
+  project_id?: string
 }
 
 export type UpdateTaskInput = {
@@ -26,6 +28,7 @@ export type UpdateTaskInput = {
   description?: string
   status?: TaskStatus
   priority?: TaskPriority
+  project_id?: string
 }
 
 // Get all tasks for the current user
@@ -33,6 +36,18 @@ export async function getTasks() {
   const { data, error } = await supabase
     .from('tasks')
     .select('*')
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+  return data as Task[]
+}
+
+// Get all tasks for a specific project
+export async function getTasksByProject(projectId: string) {
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('*')
+    .eq('project_id', projectId)
     .order('created_at', { ascending: false })
 
   if (error) throw error
@@ -66,6 +81,7 @@ export async function createTask(input: CreateTaskInput) {
         description: input.description,
         status: input.status || 'todo',
         priority: input.priority || 'medium',
+        project_id: input.project_id || null,
       },
     ])
     .select()

@@ -45,6 +45,35 @@
   letter-spacing: -0.05em;
 }
 
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  margin-left: 40px;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #737373;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover {
+  color: #0a0a0a;
+  background: #fafafa;
+}
+
+.nav-link-active {
+  color: #0a0a0a;
+  background: #fafafa;
+  border-bottom: 2px solid #0a0a0a;
+}
+
 .navbar-actions {
   display: flex;
   align-items: center;

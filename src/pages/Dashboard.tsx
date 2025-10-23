@@ -5,6 +5,8 @@ import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { getTasks, createTask, getTaskStats } from '../lib/tasks'
 import type { Task, CreateTaskInput } from '../lib/tasks'
+import { getProjects } from '../lib/projects'
+import type { Project } from '../lib/projects'
 import '../styles/Dashboard.css'
 
 export const Dashboard = () => {
@@ -13,12 +15,19 @@ export const Dashboard = () => {
   const [showTaskForm, setShowTaskForm] = useState(false)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'todo' | 'in_progress' | 'done'>('all')
+  const [projects, setProjects] = useState<Project[]>([])
+  const [projectFilter, setProjectFilter] = useState<string>('all')
 
   const loadTasks = async () => {
     try {
-      const [tasksData, statsData] = await Promise.all([getTasks(), getTaskStats()])
+      const [tasksData, statsData, projectsData] = await Promise.all([
+        getTasks(),
+        getTaskStats(),
+        getProjects('active')
+      ])
       setTasks(tasksData)
       setStats(statsData)
+      setProjects(projectsData)
     } catch (error) {
       console.error('Failed to load tasks:', error)
     } finally {
@@ -36,9 +45,18 @@ export const Dashboard = () => {
     setShowTaskForm(false)
   }
 
-  const filteredTasks = filter === 'all'
+  let filteredTasks = filter === 'all'
     ? tasks
     : tasks.filter(task => task.status === filter)
+
+  // Apply project filter
+  if (projectFilter !== 'all') {
+    if (projectFilter === 'none') {
+      filteredTasks = filteredTasks.filter(task => !task.project_id)
+    } else {
+      filteredTasks = filteredTasks.filter(task => task.project_id === projectFilter)
+    }
+  }
 
   const getGreeting = () => {
     const hour = new Date().getHours()
@@ -117,7 +135,26 @@ export const Dashboard = () => {
                 </p>
               </div>
 
-              <div className="filter-pills">
+              <div className="filters-container">
+                <div className="project-filter">
+                  <label htmlFor="project-select">Project:</label>
+                  <select
+                    id="project-select"
+                    value={projectFilter}
+                    onChange={(e) => setProjectFilter(e.target.value)}
+                    className="project-select"
+                  >
+                    <option value="all">All Projects</option>
+                    <option value="none">Standalone Tasks</option>
+                    {projects.map((project) => (
+                      <option key={project.id} value={project.id}>
+                        {project.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="filter-pills">
                 <button
                   className={`pill ${filter === 'all' ? 'pill-active' : ''}`}
                   onClick={() => setFilter('all')}
@@ -142,6 +179,7 @@ export const Dashboard = () => {
                 >
                   Done
                 </button>
+                </div>
               </div>
             </div>
 

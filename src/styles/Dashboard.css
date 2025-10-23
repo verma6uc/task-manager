@@ -247,6 +247,46 @@
   font-weight: 600;
 }
 
+.filters-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.project-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-filter label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #737373;
+}
+
+.project-select {
+  padding: 8px 12px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0a0a;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.project-select:hover {
+  border-color: #0a0a0a;
+}
+
+.project-select:focus {
+  outline: none;
+  border-color: #0a0a0a;
+}
+
 .filter-pills {
   display: inline-flex;
   gap: 6px;

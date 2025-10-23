@@ -1,20 +1,38 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { FormEvent } from 'react'
 import type { CreateTaskInput, TaskStatus, TaskPriority } from '../lib/tasks'
+import { getProjects } from '../lib/projects'
+import type { Project } from '../lib/projects'
 import '../styles/TaskForm.css'
 
 interface TaskFormProps {
   onSubmit: (task: CreateTaskInput) => Promise<void>
   onCancel: () => void
+  initialProjectId?: string
 }
 
-export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
+export const TaskForm = ({ onSubmit, onCancel, initialProjectId }: TaskFormProps) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState<TaskStatus>('todo')
   const [priority, setPriority] = useState<TaskPriority>('medium')
+  const [projectId, setProjectId] = useState<string>(initialProjectId || '')
+  const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    loadProjects()
+  }, [])
+
+  const loadProjects = async () => {
+    try {
+      const allProjects = await getProjects('active')
+      setProjects(allProjects)
+    } catch (err) {
+      console.error('Failed to load projects:', err)
+    }
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -27,12 +45,14 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
         description: description || undefined,
         status,
         priority,
+        project_id: projectId || undefined,
       })
       // Reset form
       setTitle('')
       setDescription('')
       setStatus('todo')
       setPriority('medium')
+      setProjectId('')
     } catch (err: any) {
       setError(err.message || 'Failed to create task')
     } finally {
@@ -74,6 +94,22 @@ export const TaskForm = ({ onSubmit, onCancel }: TaskFormProps) => {
               placeholder="Enter task description"
               rows={4}
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="project">Project (Optional)</label>
+            <select
+              id="project"
+              value={projectId}
+              onChange={(e) => setProjectId(e.target.value)}
+            >
+              <option value="">No Project (Standalone Task)</option>
+              {projects.map((project) => (
+                <option key={project.id} value={project.id}>
+                  {project.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-row">

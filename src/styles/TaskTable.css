@@ -29,6 +29,22 @@
   white-space: nowrap;
 }
 
+.project-label {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+.project-label.no-project {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  font-style: italic;
+}
+
 .th-title {
   width: 40%;
 }

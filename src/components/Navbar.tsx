@@ -1,14 +1,19 @@
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import '../styles/Navbar.css'
 
 export const Navbar = () => {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSignOut = async () => {
     await signOut()
     navigate('/login')
+  }
+
+  const isActive = (path: string) => {
+    return location.pathname === path || location.pathname.startsWith(path + '/')
   }
 
   return (
@@ -22,6 +27,21 @@ export const Navbar = () => {
             </svg>
           </div>
           <span className="brand-text">TaskManager</span>
+        </div>
+
+        <div className="navbar-links">
+          <Link
+            to="/dashboard"
+            className={`nav-link ${isActive('/dashboard') ? 'nav-link-active' : ''}`}
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/projects"
+            className={`nav-link ${isActive('/projects') ? 'nav-link-active' : ''}`}
+          >
+            Projects
+          </Link>
         </div>
 
         <div className="navbar-actions">
